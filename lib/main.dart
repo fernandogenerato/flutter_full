@@ -7,7 +7,7 @@ import 'screens/dashboard.dart';
 
 void main() {
   runApp(MyApp());
-  save(Contact(null,'fernando',1000)).then((id){
+  save(Contact(0,'test',10)).then((id){
 
     findAll().then((contacts) => debugPrint(contacts.toString()));
   });
