@@ -1,11 +1,17 @@
-import 'package:bytebank/screens/contacts_list.dart';
+import 'package:bytebank/database/app_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'model/contact.dart';
 import 'screens/dashboard.dart';
 
 void main() {
   runApp(MyApp());
+  save(Contact(null,'fernando',1000)).then((id){
+
+    findAll().then((contacts) => debugPrint(contacts.toString()));
+  });
+
 }
 
 class MyApp extends StatelessWidget {
