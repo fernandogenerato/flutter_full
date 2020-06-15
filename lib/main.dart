@@ -7,26 +7,21 @@ import 'screens/dashboard.dart';
 
 void main() {
   runApp(MyApp());
-  save(Contact(0,'test',10)).then((id){
-
-    findAll().then((contacts) => debugPrint(contacts.toString()));
-  });
-
+//  save(Contact(0, 'fernando', 1000)).then((id) {});
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(
-          primaryColor: Colors.grey[900],
-          accentColor: Colors.lightGreenAccent[100],
-          buttonTheme: ButtonThemeData(
-            buttonColor: Colors.lightGreenAccent[100],
-          ),
+      theme: ThemeData(
+        primaryColor: Colors.grey[900],
+        accentColor: Colors.lightGreenAccent[100],
+        buttonTheme: ButtonThemeData(
+          buttonColor: Colors.lightGreenAccent[100],
         ),
-        home: Dashboard(),
+      ),
+      home: Dashboard(),
     );
   }
 }
-
