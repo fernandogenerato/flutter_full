@@ -1,5 +1,8 @@
+import 'package:bytebank/database/app_database.dart';
 import 'package:bytebank/model/contact.dart';
 import 'package:flutter/material.dart';
+
+import 'contacts_list.dart';
 
 class ContactsForm extends StatefulWidget {
   @override
@@ -9,7 +12,7 @@ class ContactsForm extends StatefulWidget {
 class _ContactsFormState extends State<ContactsForm> {
   final TextEditingController _nameController = TextEditingController();
 
-  final TextEditingController _accountNumerController = TextEditingController();
+  final TextEditingController _accountNumberController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,7 @@ class _ContactsFormState extends State<ContactsForm> {
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: TextField(
-                controller: _accountNumerController,
+                controller: _accountNumberController,
                 decoration: InputDecoration(
                   labelText: 'Account Number',
                 ),
@@ -51,10 +54,9 @@ class _ContactsFormState extends State<ContactsForm> {
                   child: Text('Create'),
                   onPressed: () {
                     final String name = _nameController.text;
-                    final int accountNumer =
-                        int.tryParse(_accountNumerController.text);
-                    final Contact newContact = Contact(0,name, accountNumer);
-                    Navigator.pop(context, newContact);
+                    final int accountNumber = int.tryParse(_accountNumberController.text);
+                    final Contact newContact = Contact(0, name, accountNumber);
+                    save(newContact).then((id) => Navigator.pop(context));
                   },
                 ),
               ),

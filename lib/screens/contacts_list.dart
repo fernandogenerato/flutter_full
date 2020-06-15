@@ -4,7 +4,12 @@ import 'package:bytebank/screens/contact_form.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ContactsList extends StatelessWidget {
+class ContactsList extends StatefulWidget {
+  @override
+  _ContactsListState createState() => _ContactsListState();
+}
+
+class _ContactsListState extends State<ContactsList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,8 +18,8 @@ class ContactsList extends StatelessWidget {
       ),
       body: FutureBuilder<List<Contact>>(
         initialData: List(),
-//        future: Future.delayed(Duration(seconds: 1)).then((value) => findAll()),
-        future: findAll(),
+        future: Future.delayed(Duration(seconds: 1)).then((value) => findAll()),
+//        future: findAll(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
@@ -48,15 +53,16 @@ class ContactsList extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ContactsForm(),
-            ),
-          ).then(
-            (newContact) => debugPrint(newContact.toString()),
-          );
+        onPressed:() {
+          Navigator.of(context).push(
+              MaterialPageRoute(
+                  builder: (context) => ContactsForm()
+              )
+          ).then((value) {
+            setState(() {
+              widget.createState();
+            });
+          });
         },
         child: Icon(Icons.add),
       ),
