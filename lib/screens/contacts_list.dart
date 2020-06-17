@@ -18,8 +18,8 @@ class _ContactsListState extends State<ContactsList> {
       ),
       body: FutureBuilder<List<Contact>>(
         initialData: List(),
-        future: Future.delayed(Duration(seconds: 1)).then((value) => findAll()),
-//        future: findAll(),
+//        future: Future.delayed(Duration(seconds: 1)).then((value) => findAll()),
+        future: findAll(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
@@ -83,7 +83,6 @@ class _ContactItem extends StatelessWidget {
           style: TextStyle(fontSize: 24.0),
         ),
         leading: Icon(Icons.account_circle),
-
         subtitle: Text(
           contact.accountNumber.toString(),
           style: TextStyle(fontSize: 16.0),

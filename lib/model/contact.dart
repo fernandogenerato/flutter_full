@@ -1,7 +1,7 @@
 class Contact {
   final int id;
   final String name;
-  final int accountNumber;
+  final String accountNumber;
 
   Contact(this.id, this.name, this.accountNumber);
 
