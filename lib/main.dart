@@ -1,8 +1,6 @@
-import 'package:bytebank/database/app_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'model/contact.dart';
 import 'screens/dashboard.dart';
 
 void main() {
