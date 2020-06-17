@@ -53,12 +53,10 @@ class _ContactsListState extends State<ContactsList> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed:() {
-          Navigator.of(context).push(
-              MaterialPageRoute(
-                  builder: (context) => ContactsForm()
-              )
-          ).then((value) {
+        onPressed: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => ContactsForm()))
+              .then((value) {
             setState(() {
               widget.createState();
             });
@@ -84,6 +82,8 @@ class _ContactItem extends StatelessWidget {
           contact.name,
           style: TextStyle(fontSize: 24.0),
         ),
+        leading: Icon(Icons.account_circle),
+
         subtitle: Text(
           contact.accountNumber.toString(),
           style: TextStyle(fontSize: 16.0),
