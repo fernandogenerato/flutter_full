@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'http/webclient.dart';
 import 'screens/dashboard.dart';
 
 void main() {
   runApp(MyApp());
+  findAll();
+
 //  save(Contact(0, 'fernando', 1000)).then((id) {});
 }
 
