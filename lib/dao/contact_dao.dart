@@ -11,7 +11,7 @@ class ContactDao {
   static const createTable = 'CREATE TABLE $_tableName('
       '$_id INTEGER PRIMARY KEY, '
       '$_name TEXT, '
-      '$_accountNumber TEXT) ';
+      '$_accountNumber INTEGER) ';
 
   Future<int> save(Contact contact) async {
     final Database db = await getDatabase();

@@ -53,9 +53,8 @@ class _ContactsFormState extends State<ContactsForm> {
                   child: Text('Create'),
                   onPressed: () {
                     final String name = _nameController.text;
-//                    final int accountNumber = int.tryParse(_accountNumberController.text);
-                    final String accountNumber =
-                        (_accountNumberController.text);
+                    final int accountNumber =
+                        int.tryParse(_accountNumberController.text);
                     final Contact newContact = Contact(0, name, accountNumber);
                     _dao.save(newContact).then((id) => Navigator.pop(context));
                   },

@@ -7,4 +7,5 @@ Future<Database> getDatabase() async {
   return openDatabase(path, onCreate: (db, version) {
     db.execute(ContactDao.createTable);
   }, version: 1, onDowngrade: onDatabaseDowngradeDelete);
+
 }
