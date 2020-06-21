@@ -9,9 +9,7 @@ import 'package:flutter/material.dart';
 
 class TransactionForm extends StatefulWidget {
   final Contact contact;
-
   TransactionForm(this.contact);
-
   @override
   _TransactionFormState createState() => _TransactionFormState();
 }
@@ -94,32 +92,60 @@ class _TransactionFormState extends State<TransactionForm> {
     String password,
     BuildContext context,
   ) async {
+    Transaction transaction = await _send(
+      transactionCreated,
+      password,
+      context,
+    );
+    _showSuccessMessage(transaction, context);
+  }
+
+  Future<Transaction> _send(
+    Transaction transactionCreated,
+    String password,
+    BuildContext context,
+  ) async {
     final Transaction transaction = await _webClient
-        .save(transactionCreated, password)
+        .save(
+          transactionCreated,
+          password,
+        )
         .timeout(Duration(seconds: 3))
         .catchError((e) {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return FailureDialog(e.toString());
-        },
+      _showFailureMessage(
+        context,
+        message: e.message,
+      );
+    }, test: (e) => e is HttpException).catchError((e) {
+      _showFailureMessage(
+        context,
+        message: 'timeout submitting the transaction',
       );
     }, test: (e) => e is TimeoutException).catchError((e) {
-      showDialog(
+      _showFailureMessage(
+        context,
+      );
+    });
+
+    return transaction;
+  }
+
+  void _showFailureMessage(BuildContext context,
+      {String message = 'Unknown Error'}) {
+    showDialog(
         context: context,
         builder: (context) {
-          return FailureDialog(e.message);
-        },
-      );
-    }, test: (e) => e is HttpException);
-
+          return FailureDialog(message);
+        });
+  }
+  void _showSuccessMessage(Transaction transaction, BuildContext context,
+      {String message = 'Sucesso'}) {
     if (transaction != null) {
       showDialog(
-        context: context,
-        builder: (sucesso) {
-          return SuccessDialog('Sucesso');
-        },
-      ).then(
+          context: context,
+          builder: (context) {
+            return SuccessDialog(message);
+          }).then(
         (value) => Navigator.pop(context),
       );
     }
