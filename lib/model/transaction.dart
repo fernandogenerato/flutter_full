@@ -5,7 +5,7 @@ class Transaction {
   double value;
   Contact contact;
 
-  Transaction(this.id, this.value, this.contact);
+  Transaction(this.id, this.value, this.contact) : assert(value > 0);
 
   Transaction.fromJson(Map<String, dynamic> json) {
     id = json['id'];
