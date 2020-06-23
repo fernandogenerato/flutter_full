@@ -23,4 +23,15 @@ class Contact {
   String toString() {
     return '\nContact{id: $id, name: $name, accountNumer: $accountNumber}';
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Contact &&
+          runtimeType == other.runtimeType &&
+          name == other.name &&
+          accountNumber == other.accountNumber;
+
+  @override
+  int get hashCode => name.hashCode ^ accountNumber.hashCode;
 }

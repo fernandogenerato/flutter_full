@@ -7,12 +7,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ContactsList extends StatefulWidget {
+  final ContactDao contactDao;
+
+  ContactsList({@required this.contactDao});
+
   @override
-  _ContactsListState createState() => _ContactsListState();
+  _ContactsListState createState() => _ContactsListState(contactDao: contactDao);
 }
 
 class _ContactsListState extends State<ContactsList> {
-  final ContactDao _dao = ContactDao();
+  final ContactDao contactDao;
+
+
+  _ContactsListState({@required this.contactDao});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +30,7 @@ class _ContactsListState extends State<ContactsList> {
       body: FutureBuilder<List<Contact>>(
         initialData: List(),
 //        future: Future.delayed(Duration(seconds: 1)).then((value) => findAll()),
-        future: _dao.findAll(),
+        future: contactDao.findAll(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
@@ -38,7 +45,7 @@ class _ContactsListState extends State<ContactsList> {
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final Contact contact = contacts[index];
-                  return _ContactItem(
+                  return ContactItem(
                     contact,
                     onClick: () {
                       Navigator.of(context).push(
@@ -59,7 +66,11 @@ class _ContactsListState extends State<ContactsList> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => ContactsForm()))
+              .push(MaterialPageRoute(
+              builder: (context) =>
+                  ContactsForm(
+                    contactDao: contactDao,
+                  )))
               .then((value) {
             setState(() {
               widget.createState();
@@ -70,13 +81,14 @@ class _ContactsListState extends State<ContactsList> {
       ),
     );
   }
+
 }
 
-class _ContactItem extends StatelessWidget {
+class ContactItem extends StatelessWidget {
   final Contact contact;
   final Function onClick;
 
-  _ContactItem(this.contact, {@required this.onClick});
+  ContactItem(this.contact, {@required this.onClick});
 
   @override
   Widget build(BuildContext context) {

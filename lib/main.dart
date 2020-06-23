@@ -1,11 +1,16 @@
+import 'package:bytebank/dao/contact_dao.dart';
 import 'package:bytebank/screens/dashboard.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MyApp(contactDao: ContactDao()));
 }
 
 class MyApp extends StatelessWidget {
+  final ContactDao contactDao;
+
+  MyApp({@required this.contactDao});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,7 +21,7 @@ class MyApp extends StatelessWidget {
           buttonColor: Colors.lightGreenAccent[100],
         ),
       ),
-      home: Dashboard(),
+      home: Dashboard(contactDao: contactDao),
     );
   }
 }
