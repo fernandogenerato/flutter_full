@@ -12,8 +12,10 @@ import '../mocks/mocks.dart';
 void main() {
   testWidgets('should save a contact', (tester) async {
     final mockContactDao = MockContactDao();
+    final mockTransactionWebCient = MockTransactionWebClient();
 
     await tester.pumpWidget(MyApp(
+      transactionWebClient: mockTransactionWebCient,
       contactDao: mockContactDao,
     ));
 
@@ -41,12 +43,12 @@ void main() {
     expect(contactForm, findsOneWidget);
 
     final nameTextField = find
-        .byWidgetPredicate((widget) => textFieldMatcher(widget, 'Full Name'));
+        .byWidgetPredicate((widget) => textFieldByLabelTextMatcher(widget, 'Full Name'));
     expect(nameTextField, findsOneWidget);
     await tester.enterText(nameTextField, 'fernando');
 
     final accountTextField = find.byWidgetPredicate(
-        (widget) => textFieldMatcher(widget, 'Account Number'));
+        (widget) => textFieldByLabelTextMatcher(widget, 'Account Number'));
     expect(accountTextField, findsOneWidget);
     await tester.enterText(accountTextField, 'Account Number');
 
